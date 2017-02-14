@@ -142,4 +142,5 @@ class Model(dict):
             else:
                 jsonschema.validate(obj, self.schema)
         except jsonschema.ValidationError as exc:
-            raise exceptions.ValidationError(str(exc))
+            e = 'Error occur when validating model {0}\n\n'.format(str(self.schema['name']))
+            raise exceptions.ValidationError(e + str(exc))
