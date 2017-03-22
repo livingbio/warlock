@@ -30,6 +30,11 @@ class Model(dict):
         # we overload setattr so set this manually
         d = dict(*args, **kwargs)
 
+        if self.schema.get('default'):
+            default_dict = self.schema['default']
+            for key in default_dict.keys():
+                d.setdefault(key, default_dict[key])
+
         try:
             self.validate(d)
         except exceptions.ValidationError as exc:
